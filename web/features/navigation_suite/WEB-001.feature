@@ -1,4 +1,4 @@
-Feature: The Internet Guinea Pig Website
+Feature: The Tomware GmbH
 
   Scenario Outline: As a user, I go through the Homepage
 
