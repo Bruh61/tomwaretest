@@ -13,14 +13,26 @@ export default class Page {
     public get homeMenu () {
         return $("(//a[@class='elementor-item elementor-item-active'][normalize-space()='Home'])[5]");
     }
+    public get notHomeMenu () {
+        return $("(//a[@class='elementor-item'][normalize-space()='Home'])[5]");
+    }
     public get businessMenu () {
         return $("(//a[@class='elementor-item'][normalize-space()='Dienstleistungen'])[5]");
+    }
+    public get notBusinessMenu () {
+        return $("(//a[@class='elementor-item'][normalize-space()='Branchen'])[5]");
     }
     public get serviceMenu () {
         return $("(//a[@class='elementor-item'][normalize-space()='Branchen'])[5]");
     }
+    public get notServiceMenu () {
+        return $("(//a[@class='elementor-item'][normalize-space()='Dienstleistungen'])[5]");
+    }
     public get contactMenu () {
         return $("(//a[@class='elementor-item'][normalize-space()='Kontakt'])[5]");
+    }
+    public get notContactMenu () {
+        return $("");
     }
     /**
     * Opens a sub page of the page
@@ -32,7 +44,7 @@ export default class Page {
     public openBusiness (path: string) {
         return browser.url(`https://www.tomware-it.de/branchen/`)
     }
-    public openServices (path: string) {
+    public openService (path: string) {
         return browser.url(`https://www.tomware-it.de/dienstleistungen/`)
     }
     public openContact (path: string) {
@@ -54,6 +66,17 @@ export default class Page {
         await expect(this.businessMenu).toHaveTextContaining("Dienstleistungen");
         await expect(this.serviceMenu).toBeExisting();
         await expect(this.serviceMenu).toHaveTextContaining("Branchen");
+        await expect(this.contactMenu).toBeExisting();
+        await expect(this.contactMenu).toHaveTextContaining("Kontakt");
+    }
+    async assertHeaderNotHome(){
+        await expect(this.tomwareLogo).toBeExisting();
+        await expect(this.notHomeMenu).toBeExisting();
+        await expect(this.notHomeMenu).toHaveTextContaining("Home");
+        await expect(this.notBusinessMenu).toBeExisting();
+        await expect(this.notBusinessMenu).toHaveTextContaining("Dienstleistungen");
+        await expect(this.notServiceMenu).toBeExisting();
+        await expect(this.notServiceMenu).toHaveTextContaining("Branchen");
         await expect(this.contactMenu).toBeExisting();
         await expect(this.contactMenu).toHaveTextContaining("Kontakt");
     }

@@ -31,13 +31,13 @@ class FooterPage extends Page {
      * overwrite specific options to adapt it to page object
      */
     async assertFooter(){
-        await this.clickOnFooterInstances();
         await expect(this.tomwareImgFooter).toBeExisting();
         await expect(this.tomwareContact).toBeExisting();
         await expect(this.tomwareGmbHCaption).toBeExisting();
         await expect(this.tomwareImprint).toBeExisting();
         await expect(this.tomwareTermsofUse).toBeExisting();
         await expect(this.tomwareLogin).toBeExisting();
+        await this.clickOnFooterInstances();
     }
     async clickOnFooterInstances(){
         await this.clickContact();
@@ -74,7 +74,7 @@ class FooterPage extends Page {
         (await this.tomwareLogin).waitForDisplayed();
         (await this.tomwareLogin).waitForClickable();
         (await this.tomwareLogin).click();
-        await browser.pause(2000);
+        await browser.pause(1000);
         await driver.back();
         await driver.back();
     }
