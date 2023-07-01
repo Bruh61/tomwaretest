@@ -34,18 +34,34 @@ export default class Page {
     public get notContactMenu () {
         return $("");
     }
+    // Cookies
+    public get cookieCaption () {
+        return $("//p[@class='cky-title']");
+    }
+    public get cookieDescription () {
+        return $("div[class='cky-notice-des'] p");
+    }
+    public get cookieDecline () {
+        return $("button[data-cky-tag='reject-button']");
+    }
+    public get cookieAccept () {
+        return $("button[data-cky-tag='accept-button']");
+    }
+    public get cookieReadmore () {
+        return $("a[aria-label='Mehr lesen']");
+    }
     /**
     * Opens a sub page of the page
     * @param path path of the sub page (e.g. /path/to/page.html)
     */
     public open (path: string) {
-        return browser.url(``)
-    }
-    public openBusiness (path: string) {
-        return browser.url(`https://www.tomware-it.de/branchen/`)
+        return browser.url(`https://www.tomware-it.de/`)
     }
     public openService (path: string) {
         return browser.url(`https://www.tomware-it.de/dienstleistungen/`)
+    }
+    public openBusiness (path: string) {
+        return browser.url(`https://www.tomware-it.de/branchen/`)
     }
     public openContact (path: string) {
         return browser.url(`https://www.tomware-it.de/kontakt/`)
@@ -79,5 +95,22 @@ export default class Page {
         await expect(this.notServiceMenu).toHaveTextContaining("Branchen");
         await expect(this.contactMenu).toBeExisting();
         await expect(this.contactMenu).toHaveTextContaining("Kontakt");
+    }
+    async cookies(){
+        await expect(this.cookieCaption).toBeExisting();
+        await expect(this.cookieCaption).toHaveTextContaining("Wir schätzen Ihre Privatsphäre");
+        await expect(this.cookieDescription).toBeExisting();
+        await expect(this.cookieDescription).toHaveTextContaining("Wir verwenden Cookies, um Ihr Surferlebnis zu verbessern und unseren Datenverkehr zu analysieren. Indem Sie auf „Akzeptieren“ klicken, stimmen Sie unserer Verwendung von Cookies zu.");
+        await expect(this.cookieDecline).toBeExisting();
+        await expect(this.cookieDecline).toHaveTextContaining("Ablehnen");
+        await expect(this.cookieAccept).toBeExisting();
+        await expect(this.cookieAccept).toHaveTextContaining("Akzeptieren");
+        await expect(this.cookieReadmore).toBeExisting();
+        await this.clickonCookies();
+    }
+    async clickonCookies(){
+        (await this.cookieAccept).waitForDisplayed();
+        (await this.cookieAccept).waitForClickable();
+        (await this.cookieAccept).click();
     }
 }

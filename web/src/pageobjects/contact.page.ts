@@ -49,6 +49,8 @@ class ContactPage extends Page {
      * overwrite specific options to adapt it to page object
      */
     async assertContactPage(){
+        await this.cookies();
+        await this.assertTitle();
         await expect(this.contactPageCaption).toBeExisting();
         await expect(this.contactPageCaption).toHaveTextContaining("Interesse an einer Zusammenarbeit?");
         await expect(this.contactPageHeaderImg).toBeExisting();
@@ -62,6 +64,9 @@ class ContactPage extends Page {
         await expect(this.contactBarDesciption1).toBeExisting();
         await expect(this.contactBarDesciption2).toBeExisting();
         await expect(this.contactField).toBeExisting();
+    }
+    async assertTitle(){
+        await expect(browser).toHaveTitle("Kontakt • Tomware");
     }
     public open () {
         return super.openContact('');
