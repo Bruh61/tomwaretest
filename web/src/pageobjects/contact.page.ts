@@ -62,7 +62,6 @@ class ContactPage extends Page {
         await expect(this.contactBarDesciption1).toBeExisting();
         await expect(this.contactBarDesciption2).toBeExisting();
         await expect(this.contactField).toBeExisting();
-        //await this.assertHeader();
     }
     public open () {
         return super.openContact('');
