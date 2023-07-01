@@ -35,7 +35,8 @@ export const config: Options.Testrunner = {
     specs: [
         //'./web/features/**/*.feature',
         './web/features/**/WEB-001.feature',
-        './web/features/**/WEB-003.feature'
+        './web/features/**/WEB-003.feature',
+        './web/features/**/WEB-005.feature'
     ],
     // Patterns to exclude.
     exclude: [

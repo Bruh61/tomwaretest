@@ -98,22 +98,6 @@ class HomePage extends Page {
     public get ecommerceBarButton() {
         return $("//span[contains(text(),'Jetzt unverbindlich anfragen')]");
     }
-    // Menu
-    public get tomwareLogo () {
-        return $("(//img[@class='attachment-full size-full wp-image-466'])[3]");
-    }
-    public get homeMenu () {
-        return $("(//a[@class='elementor-item elementor-item-active'][normalize-space()='Home'])[5]");
-    }
-    public get businessMenu () {
-        return $("(//a[@class='elementor-item'][normalize-space()='Dienstleistungen'])[5]");
-    }
-    public get serviceMenu () {
-        return $("(//a[@class='elementor-item'][normalize-space()='Branchen'])[5]");
-    }
-    public get contactMenu () {
-        return $("(//a[@class='elementor-item'][normalize-space()='Kontakt'])[5]");
-    }
     // Cookies
     public get cookieCaption () {
         return $("//p[@class='cky-title']");
@@ -139,17 +123,6 @@ class HomePage extends Page {
         await this.assertHeader();
         await this.homeTitle();
         await this.serviceBar();
-    }
-    async assertHeader(){
-        await expect(this.tomwareLogo).toBeExisting();
-        await expect(this.homeMenu).toBeExisting();
-        await expect(this.homeMenu).toHaveTextContaining("Home");
-        await expect(this.businessMenu).toBeExisting();
-        await expect(this.businessMenu).toHaveTextContaining("Dienstleistungen");
-        await expect(this.serviceMenu).toBeExisting();
-        await expect(this.serviceMenu).toHaveTextContaining("Branchen");
-        await expect(this.contactMenu).toBeExisting();
-        await expect(this.contactMenu).toHaveTextContaining("Kontakt");
     }
     async assertBody(){
         await expect(this.homeCaption1).toBeExisting();
