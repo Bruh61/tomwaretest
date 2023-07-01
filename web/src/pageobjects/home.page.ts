@@ -98,30 +98,14 @@ class HomePage extends Page {
     public get ecommerceBarButton() {
         return $("//span[contains(text(),'Jetzt unverbindlich anfragen')]");
     }
-    // Cookies
-    public get cookieCaption () {
-        return $("//p[@class='cky-title']");
-    }
-    public get cookieDescription () {
-        return $("div[class='cky-notice-des'] p");
-    }
-    public get cookieDecline () {
-        return $("button[data-cky-tag='reject-button']");
-    }
-    public get cookieAccept () {
-        return $("button[data-cky-tag='accept-button']");
-    }
-    public get cookieReadmore () {
-        return $("a[aria-label='Mehr lesen']");
-    }
     /**
      * overwrite specific options to adapt it to page object
      */
     async assertHomepage(){
-        await this.homeCookies();
+        await this.cookies();
         await this.assertBody();
         await this.assertHeader();
-        await this.homeTitle();
+        await this.assertTitle();
         await this.serviceBar();
     }
     async assertBody(){
@@ -149,7 +133,7 @@ class HomePage extends Page {
         await expect(this.ecommerceBarGoLive).toBeExisting();
         await expect(this.ecommerceBarButton).toBeExisting();
     }
-    async homeTitle(){
+    async assertTitle(){
         await expect(browser).toHaveTitle("Home • Tomware IT Consulting");
     }
     async serviceBar(){
@@ -166,23 +150,6 @@ class HomePage extends Page {
         await expect(this.serviceManagementBar).toBeExisting();
         await expect(this.serviceManagementDescription).toBeExisting();
         await expect(this.serviceButton).toBeExisting();
-    }
-    async homeCookies(){
-        await expect(this.cookieCaption).toBeExisting();
-        await expect(this.cookieCaption).toHaveTextContaining("Wir schätzen Ihre Privatsphäre");
-        await expect(this.cookieDescription).toBeExisting();
-        await expect(this.cookieDescription).toHaveTextContaining("Wir verwenden Cookies, um Ihr Surferlebnis zu verbessern und unseren Datenverkehr zu analysieren. Indem Sie auf „Akzeptieren“ klicken, stimmen Sie unserer Verwendung von Cookies zu.");
-        await expect(this.cookieDecline).toBeExisting();
-        await expect(this.cookieDecline).toHaveTextContaining("Ablehnen");
-        await expect(this.cookieAccept).toBeExisting();
-        await expect(this.cookieAccept).toHaveTextContaining("Akzeptieren");
-        await expect(this.cookieReadmore).toBeExisting();
-        await this.clickonCookies();
-    }
-    async clickonCookies(){
-        (await this.cookieAccept).waitForDisplayed();
-        (await this.cookieAccept).waitForClickable();
-        (await this.cookieAccept).click();
     }
 
     public open () {
