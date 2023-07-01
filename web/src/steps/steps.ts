@@ -3,6 +3,7 @@ import { Given, When, Then } from '@wdio/cucumber-framework';
 import LoginPage from '../pageobjects/login.page.js';
 import HomePage from '../pageobjects/home.page.js';
 import FooterPage from '../pageobjects/footer.page.js';
+import ContactPage from '../pageobjects/contact.page.js';
 
 const pages = {
     login: LoginPage
@@ -17,6 +18,12 @@ Then(/^I go through the Homepage/, async () => {
 });
 Then(/^I go through the Footer/, async () => {
     await FooterPage.assertFooter();
+});
+Given(/^I am on the Contact Page/, async () => {
+    await ContactPage.open();
+});
+Then(/^I go through the Contact Page/, async () => {
+    await ContactPage.assertContactPage();
 });
 /*When(/^I login with (\w+) and (.+)$/, async (username, password) => {
     await LoginPage.login(username, password)
