@@ -10,4 +10,12 @@ export default class Page {
     public open (path: string) {
         return browser.url(``)
     }
+    public async closeNewTab(): Promise<void>{
+        const handles = await browser.getWindowHandles();
+        if(handles.length > 1){
+            await browser.switchToWindow(handles[1]);
+            await browser.closeWindow();
+            await browser.switchToWindow(handles[0]);
+        }
+    }
 }

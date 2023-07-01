@@ -10,38 +10,74 @@ class FooterPage extends Page {
      * define selectors using getter methods
      */
     public get tomwareImgFooter () {
-        return $("div[class='elementor-element elementor-element-3dfa24b3 elementor-widget elementor-widget-image'] img[title='cropped-Tomware-T.png']");
+        return $("(//img[@title='cropped-Tomware-T.png'])");
     }
-    public get contact () {
-        return $("section[class='elementor-section elementor-inner-section elementor-element elementor-element-5b6d70b8 elementor-section-content-middle elementor-section-boxed elementor-section-height-default elementor-section-height-default'] li:nth-child(1) a:nth-child(1)");
+    public get tomwareContact () {
+        return $("(//span[contains(text(),'Kontakt')])");
     }
     public get tomwareGmbHCaption () {
-        return $("body > div:nth-child(16) > div:nth-child(1) > section:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > section:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > ul:nth-child(2) > li:nth-child(2) > a:nth-child(1) > span:nth-child(2)");
+        return $("//span[contains(text(),'2022 TOMWARE GmbH')]");
     }
     public get tomwareImprint () {
-        return $("(//span[contains(text(),'Impressum')])[1]");
+        return $("(//span[contains(text(),'Impressum')])");
     }
     public get tomwareTermsofUse () {
-        return $("div[class='elementor-element elementor-element-acb1417 elementor-align-center elementor-mobile-align-center elementor-icon-list--layout-inline elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list'] li:nth-child(1) a:nth-child(1)");
+        return $("(//span[contains(text(),'Datenschutz')])");
     }
     public get tomwareLogin () {
-        return $("(//span[contains(text(),'Login')])[1]");
+        return $("(//span[contains(text(),'Login')])");
     }
     /**
      * overwrite specific options to adapt it to page object
      */
     async assertFooter(){
+        await this.clickOnFooterInstances();
         await expect(this.tomwareImgFooter).toBeExisting();
-        await expect(this.contact).toBeExisting();
-        await expect(this.contact).toHaveTextContaining("Kontakt");
+        await expect(this.tomwareContact).toBeExisting();
         await expect(this.tomwareGmbHCaption).toBeExisting();
-        await expect(this.tomwareGmbHCaption).toHaveTextContaining("2022 TOMWARE GmbH");
         await expect(this.tomwareImprint).toBeExisting();
         await expect(this.tomwareTermsofUse).toBeExisting();
-        await expect(this.tomwareTermsofUse).toHaveTextContaining("Datenschutz");
         await expect(this.tomwareLogin).toBeExisting();
     }
-
+    async clickOnFooterInstances(){
+        await this.clickContact();
+        await this.clickImprint();
+        await this.clickTermsofUse();
+        await this.clickLogin();
+    }
+    async clickContact(){
+        (await this.tomwareContact).scrollIntoView();
+        (await this.tomwareContact).waitForDisplayed();
+        (await this.tomwareContact).waitForClickable();
+        (await this.tomwareContact).click();
+        await browser.pause(1000);
+        await driver.back();
+    }
+    async clickImprint(){
+        (await this.tomwareImprint).scrollIntoView();
+        (await this.tomwareImprint).waitForDisplayed();
+        (await this.tomwareImprint).waitForClickable();
+        (await this.tomwareImprint).click();
+        await browser.pause(1000);
+        await driver.back();
+    }
+    async clickTermsofUse(){
+        (await this.tomwareTermsofUse).scrollIntoView();
+        (await this.tomwareTermsofUse).waitForDisplayed();
+        (await this.tomwareTermsofUse).waitForClickable();
+        (await this.tomwareTermsofUse).click();
+        await browser.pause(1000);
+        await driver.back();
+    }
+    async clickLogin(){
+        (await this.tomwareLogin).scrollIntoView();
+        (await this.tomwareLogin).waitForDisplayed();
+        (await this.tomwareLogin).waitForClickable();
+        (await this.tomwareLogin).click();
+        await browser.pause(2000);
+        await driver.back();
+        await driver.back();
+    }
 
 }
 
