@@ -1,4 +1,5 @@
 import type { Options } from '@wdio/types'
+import cucumberJson from "wdio-cucumberjs-json-reporter";
 
 export const config: Options.Testrunner = {
     //
@@ -140,7 +141,27 @@ export const config: Options.Testrunner = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec'],
+    reporters: [
+        [
+            'spec',
+            {
+                symbol: { passed: "[PASS]", failed: "[FAIL]", skipped: "[SKIP]"}
+            },
+        ],
+        [
+            "cucumberjs-json",
+            {
+                jsonFoler: "json-reports/",
+                language: "en"
+            }
+        ],
+        ['allure', {
+            outputDir: 'allure-results',
+            userCucumberStepsReporter: true,
+            disableWebdriverStepsReporting: true,
+            disableWebdriverScreenshotsReporting: false,
+        }]
+    ],
 
     //
     // If you are using Cucumber you need to specify the location of your step definitions.
@@ -256,6 +277,12 @@ export const config: Options.Testrunner = {
      */
     // beforeStep: function (step, scenario, context) {
     // },
+    afterStep: async function (step, scenario, { error, duration, passed }, context) {
+        if (error) {
+          await browser.takeScreenshot();
+          await cucumberJson.attach(await browser.takeScreenshot(), "image/png")
+        }
+      }
     /**
      *
      * Runs after a Cucumber Step.
